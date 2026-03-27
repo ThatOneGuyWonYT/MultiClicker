@@ -1,48 +1,61 @@
-* { box-sizing: border-box; }
-
+/* If you see this color, the CSS file IS working */
 body {
     margin: 0;
     height: 100vh;
-    /* Fallback color so you know if the CSS is loading */
-    background-color: #2e004f; 
+    background-color: #121212 !important; 
     background-image: url('ClickerArt/Background.png');
     background-size: cover;
     background-position: center;
-    color: #fff;
-    font-family: sans-serif;
+    color: white;
+    font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: center;
 }
 
-#ui { text-align: center; background: rgba(0,0,0,0.8); padding: 10px 40px; border-radius: 10px; }
-#score { font-size: 4rem; margin: 0; color: #00ff88; }
+#stats-container {
+    text-align: center;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.6);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#score { font-size: 5rem; margin: 0; color: #00ff88; }
 
 #clicker {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 5px solid #00ff88;
-    background: rgba(0,0,0,0.5);
-    color: white;
-    font-size: 1.5rem;
+    width: 150px;
+    height: 150px;
     cursor: pointer;
+    background: #00ff88;
+    border: none;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 0 20px rgba(0,255,136,0.4);
     transition: 0.1s;
 }
 
 #clicker:active { transform: scale(0.9); }
 
-#shop { display: flex; gap: 10px; width: 100%; max-width: 600px; }
+#shop {
+    margin-top: 50px;
+    display: flex;
+    gap: 10px;
+}
 
-#shop button {
-    flex: 1;
+.shop-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #00ff88;
+    color: white;
     padding: 10px;
-    background: rgba(0,0,0,0.8);
-    border: 1px solid #444;
-    color: #00ff88;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-#shop button:disabled { color: #555; border-color: #222; cursor: not-allowed; }
+.shop-btn:disabled {
+    opacity: 0.3;
+    border-color: #555;
+    cursor: not-allowed;
+}

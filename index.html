@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <div id="ui">
+    <div id="stats-container">
         <h1 id="score">0</h1>
         <p>Power: <span id="pwr">1</span> | Auto: <span id="aps">0</span>/s</p>
     </div>
@@ -15,13 +15,13 @@
     <button id="clicker">CLICK</button>
 
     <div id="shop">
-        <button onclick="buy(0)">
+        <button onclick="buy(0)" class="shop-btn">
             <b>Intern</b><br>+1 Auto | Cost: <span id="c0">50</span>
         </button>
-        <button onclick="buy(1)">
+        <button onclick="buy(1)" class="shop-btn">
             <b>Energy Drink</b><br>+1 Power | Cost: <span id="c1">15</span>
         </button>
-        <button onclick="buy(2)">
+        <button onclick="buy(2)" class="shop-btn">
             <b>Botnet</b><br>+10 Auto | Cost: <span id="c2">500</span>
         </button>
     </div>
