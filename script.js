@@ -2,20 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let score = 0;
     let power = 1;
     let auto = 0;
-    let items = [];
 
-    const prefixes = ["Rusty", "Shiny", "Turbo", "Omega", "Forbidden", "Cyber", "Godly", "Gamer", "Illegal", "Void"];
-    const nouns = ["Spoon", "Keyboard", "Mouse", "Server", "Botnet", "AI", "Quantum Core", "GPU", "Energy Drink", "Satellite"];
-
-    // 1. GENERATE 100 UNIQUE ITEMS
-    for (let i = 0; i < 100; i++) {
-        let pIndex = Math.floor(i / 10);
-        let nIndex = i % 10;
+    // Space Themed Items
+    const names = ["Space Dust", "Oxy Tank", "Moon Boot", "Alien Tech", "Star Map", "Laser Pointer", "Warp Drive", "Black Hole", "Galactic Core", "God Eye"];
+    const items = [];
+    for(let i=0; i<100; i++) {
         items.push({
-            name: `${prefixes[pIndex]} ${nouns[nIndex]}`,
-            cost: Math.floor(15 * Math.pow(1.25, i)),
-            pwr: i % 2 === 0 ? Math.floor(Math.pow(1.4, i/2)) : 0,
-            aps: i % 2 !== 0 ? Math.floor(Math.pow(1.3, i/2)) : 0
+            name: `${names[i%10]} Tier ${Math.floor(i/10)+1}`,
+            cost: Math.floor(15 * Math.pow(1.3, i)),
+            pwr: i % 2 === 0 ? Math.floor(Math.pow(1.5, i/2)) : 0,
+            aps: i % 2 !== 0 ? Math.floor(Math.pow(1.4, i/2)) : 0
         });
     }
 
@@ -23,18 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreEl = document.getElementById('score');
     const pwrEl = document.getElementById('pwr');
     const apsEl = document.getElementById('aps');
+    const mainBtn = document.getElementById('main-btn');
 
-    // 2. BUILD SHOP HTML
     function initShop() {
         list.innerHTML = items.map((item, i) => `
             <div class="item">
-                <div>
-                    <b>${item.name}</b><br>
-                    <small>${item.pwr > 0 ? '+' + item.pwr + ' Pwr' : '+' + item.aps + ' Auto'}</small>
-                </div>
-                <button class="buy-btn" id="btn-${i}" onclick="buyItem(${i})">
-                    $${item.cost}
-                </button>
+                <div><b>${item.name}</b><small>${item.pwr ? '+'+item.pwr+' PWR' : '+'+item.aps+' AUTO'}</small></div>
+                <button class="buy-btn" id="btn-${i}" onclick="buyItem(${i})">$${item.cost}</button>
             </div>
         `).join('');
     }
@@ -44,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             score -= items[idx].cost;
             power += items[idx].pwr;
             auto += items[idx].aps;
-            items[idx].cost = Math.floor(items[idx].cost * 1.5);
+            items[idx].cost = Math.floor(items[idx].cost * 1.6);
             sync();
         }
     };
@@ -53,28 +44,34 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreEl.innerText = Math.floor(score);
         pwrEl.innerText = power;
         apsEl.innerText = auto;
-
         items.forEach((item, i) => {
-            const btn = document.getElementById(`btn-${i}`);
-            if (btn) {
-                btn.innerText = "$" + item.cost;
-                btn.disabled = score < item.cost;
-            }
+            const b = document.getElementById(`btn-${i}`);
+            if(b) { b.innerText = "$"+item.cost; b.disabled = score < item.cost; }
         });
     }
 
-    document.getElementById('click-btn').onclick = () => {
+    // Click Logic + Animation
+    mainBtn.onclick = (e) => {
         score += power;
+        
+        // Animation
+        mainBtn.classList.remove('pop');
+        void mainBtn.offsetWidth; // Trigger reflow
+        mainBtn.classList.add('pop');
+
+        // Floating Text
+        const text = document.createElement('div');
+        text.className = 'floating-text';
+        text.innerText = `+${power}`;
+        text.style.left = `${e.clientX}px`;
+        text.style.top = `${e.clientY}px`;
+        document.body.appendChild(text);
+        setTimeout(() => text.remove(), 800);
+
         sync();
     };
 
-    setInterval(() => {
-        if (auto > 0) {
-            score += (auto / 10);
-            sync();
-        }
-    }, 100);
-
+    setInterval(() => { score += auto/10; sync(); }, 100);
     initShop();
     sync();
 });

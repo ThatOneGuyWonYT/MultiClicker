@@ -1,70 +1,110 @@
+:root {
+    --neon-green: #00ff88;
+    --pixel-font: 'VT323', monospace;
+}
+
 body {
     margin: 0;
     padding: 0;
-    background-color: #1a1a1a; /* Fallback if image fails */
-    background-image: url('ClickerArt/Background.png');
+    background: #050505 url('ClickerArt/Background.png') no-repeat center center fixed;
     background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #00ff88;
-    font-family: 'Arial Black', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
+    color: var(--neon-green);
+    font-family: var(--pixel-font);
     overflow: hidden;
 }
 
-#stats-panel {
-    background: rgba(0, 0, 0, 0.9);
-    width: 100%;
+.game-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* LEFT SIDE */
+.play-area {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.header {
     text-align: center;
-    padding: 20px;
-    border-bottom: 4px solid #00ff88;
+    position: absolute;
+    top: 50px;
 }
 
-#score { font-size: 5rem; margin: 0; color: #fff; text-shadow: 0 0 10px #00ff88; }
+#score { font-size: 8rem; margin: 0; line-height: 0.8; }
+.stats { font-size: 2rem; margin-top: 10px; color: #fff; }
 
-#click-btn {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 4px solid #fff;
-    background: #00ff88;
-    color: #000;
-    font-size: 1.5rem;
+#btn-container {
+    perspective: 1000px;
+}
+
+#main-btn {
+    width: 250px;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    transition: transform 0.05s;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
-#click-btn:active { transform: scale(0.9); }
+/* CLICK ANIMATION */
+.pop { animation: click-pop 0.1s ease-out; }
+@keyframes click-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.85); }
+    100% { transform: scale(1); }
+}
 
-#shop-container {
+/* RIGHT SIDE (SHOP) */
+.shop-area {
+    flex: 1;
     background: rgba(0, 0, 0, 0.85);
-    width: 100%;
-    max-width: 600px;
-    flex-grow: 1;
-    overflow-y: scroll;
+    border-left: 4px solid var(--neon-green);
     padding: 20px;
-    border-top: 2px solid #444;
+    overflow-y: auto;
 }
+
+h2 { font-size: 3rem; text-align: center; border-bottom: 2px solid var(--neon-green); }
 
 .item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #333;
+    margin-bottom: 10px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #222;
-    margin-bottom: 10px;
-    padding: 15px;
-    border: 1px solid #00ff88;
 }
 
+.item:hover { border-color: var(--neon-green); }
+
+.item b { font-size: 1.5rem; display: block; }
+
 .buy-btn {
-    background: #00ff88;
+    background: var(--neon-green);
     border: none;
-    padding: 10px 20px;
-    font-weight: bold;
+    font-family: var(--pixel-font);
+    font-size: 1.5rem;
+    padding: 5px 15px;
     cursor: pointer;
 }
 
-.buy-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
+.buy-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+
+/* FLOATING TEXT ANIMATION */
+.floating-text {
+    position: absolute;
+    color: white;
+    font-size: 2rem;
+    pointer-events: none;
+    animation: floatUp 0.8s forwards;
+    z-index: 100;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100px); opacity: 0; }
+}
