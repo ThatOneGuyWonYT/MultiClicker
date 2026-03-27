@@ -2,67 +2,72 @@ let score = 0;
 let power = 1;
 let auto = 0;
 
-const shopList = document.getElementById('shop-list');
+// Manually defining a few to start, then generating the rest for 100 items
+const items = [
+    { name: "Rusty Spoon", cost: 15, pwr: 1, aps: 0, desc: "Slightly more effective than your thumb." },
+    { name: "Old Mouse", cost: 100, pwr: 5, aps: 0, desc: "A relic from 2004." },
+    { name: "Coffee Machine", cost: 500, pwr: 0, aps: 5, desc: "The intern is finally awake." },
+    { name: "Auto-Clicker Bot", cost: 1200, pwr: 0, aps: 15, desc: "It never sleeps." },
+    { name: "Mechanical Keyboard", cost: 3000, pwr: 50, aps: 0, desc: "Clicky sounds make it faster." }
+];
 
-// Generate 100 items
-const items = [];
-for (let i = 1; i <= 100; i++) {
+// Generate the rest up to 100 with scaling stats
+for (let i = 6; i <= 100; i++) {
     items.push({
-        id: i,
-        name: `Upgrade #${i}`,
-        cost: Math.floor(10 * Math.pow(1.4, i)),
-        bonus: i % 2 === 0 ? i : 0, // Even items give Power
-        autoBonus: i % 2 !== 0 ? Math.ceil(i/2) : 0 // Odd items give Auto
+        name: `Mega Upgrade #${i}`,
+        cost: Math.floor(5000 * Math.pow(1.2, i)),
+        pwr: i % 2 === 0 ? i * 10 : 0,
+        aps: i % 2 !== 0 ? i * 5 : 0,
+        desc: `High-tier clicking tech level ${i}.`
     });
 }
 
-// Build the Shop HTML
-function buildShop() {
-    shopList.innerHTML = items.map((item, index) => `
-        <div class="shop-item">
-            <div>
-                <strong>${item.name}</strong><br>
-                <small>${item.bonus ? '+'+item.bonus+' Power' : '+'+item.autoBonus+' Auto/s'}</small>
+const itemList = document.getElementById('item-list');
+
+function initShop() {
+    itemList.innerHTML = items.map((item, index) => `
+        <div class="item">
+            <div class="item-info">
+                <b>${item.name}</b>
+                <p>${item.desc} (${item.pwr > 0 ? '+'+item.pwr+' Power' : '+'+item.aps+' Auto'})</p>
             </div>
-            <button class="buy-btn" id="btn-${index}" onclick="buyItem(${index})">
+            <button class="buy-btn" id="btn-${index}" onclick="buy(${index})">
                 $${item.cost}
             </button>
         </div>
     `).join('');
 }
 
-function buyItem(idx) {
+window.buy = (idx) => {
     let item = items[idx];
     if (score >= item.cost) {
         score -= item.cost;
-        power += item.bonus;
-        auto += item.autoBonus;
-        item.cost = Math.floor(item.cost * 1.5); // Increase price
+        power += item.pwr;
+        auto += item.aps;
+        item.cost = Math.floor(item.cost * 1.6);
         sync();
     }
-}
+};
 
 function sync() {
     document.getElementById('score').innerText = Math.floor(score);
     document.getElementById('pwr').innerText = power;
     document.getElementById('aps').innerText = auto;
-    
-    // Update button states
+
     items.forEach((item, idx) => {
         let b = document.getElementById(`btn-${idx}`);
         if (b) {
-            b.innerText = `$${item.cost}`;
+            b.innerText = "$" + item.cost;
             b.disabled = score < item.cost;
         }
     });
 }
 
-document.getElementById('clicker').onclick = () => {
+document.getElementById('click-btn').onclick = () => {
     score += power;
     sync();
 };
 
-// Main loop
 setInterval(() => {
     if (auto > 0) {
         score += (auto / 10);
@@ -70,5 +75,5 @@ setInterval(() => {
     }
 }, 100);
 
-buildShop();
+initShop();
 sync();
