@@ -1,61 +1,76 @@
-/* If you see this color, the CSS file IS working */
 body {
     margin: 0;
     height: 100vh;
-    background-color: #121212 !important; 
-    background-image: url('ClickerArt/Background.png');
+    background: #000 url('ClickerArt/Background.png') no-repeat center center fixed;
     background-size: cover;
-    background-position: center;
-    color: white;
-    font-family: 'Arial', sans-serif;
+    color: #0f0; /* Retro green */
+    font-family: 'Courier New', monospace;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    overflow: hidden;
 }
 
-#stats-container {
+#game-ui {
     text-align: center;
-    margin-bottom: 20px;
-    background: rgba(0,0,0,0.6);
     padding: 20px;
-    border-radius: 10px;
+    background: rgba(0,0,0,0.85);
+    width: 100%;
+    border-bottom: 2px solid #0f0;
 }
 
-#score { font-size: 5rem; margin: 0; color: #00ff88; }
+#score { font-size: 5rem; margin: 0; text-shadow: 0 0 10px #0f0; }
 
 #clicker {
-    width: 150px;
-    height: 150px;
-    cursor: pointer;
-    background: #00ff88;
-    border: none;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
+    border: 4px solid #0f0;
+    background: transparent;
+    color: #0f0;
     font-weight: bold;
-    font-size: 1.2rem;
-    box-shadow: 0 0 20px rgba(0,255,136,0.4);
+    cursor: pointer;
+    margin: 10px;
     transition: 0.1s;
 }
 
-#clicker:active { transform: scale(0.9); }
+#clicker:active { transform: scale(0.9); background: #0f0; color: #000; }
 
-#shop {
-    margin-top: 50px;
-    display: flex;
-    gap: 10px;
+/* Shop List Styling */
+#shop-container {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(0,0,0,0.9);
+    flex-grow: 1;
+    overflow-y: auto; /* This makes the 100 items scrollable */
+    padding: 15px;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
 }
 
-.shop-btn {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid #00ff88;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
+.shop-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #222;
+    background: #111;
+    margin-bottom: 5px;
+}
+
+.shop-item:hover { background: #1a1a1a; }
+
+.buy-btn {
+    background: #0f0;
+    color: #000;
+    border: none;
+    padding: 8px 15px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.shop-btn:disabled {
-    opacity: 0.3;
-    border-color: #555;
+.buy-btn:disabled {
+    background: #222;
+    color: #555;
     cursor: not-allowed;
 }

@@ -1,55 +1,74 @@
 let score = 0;
 let power = 1;
 let auto = 0;
-let costs = [50, 15, 500];
 
-const scoreDisplay = document.getElementById('score');
-const pwrDisplay = document.getElementById('pwr');
-const apsDisplay = document.getElementById('aps');
-const btnMain = document.getElementById('clicker');
+const shopList = document.getElementById('shop-list');
 
-function update() {
-    scoreDisplay.innerText = Math.floor(score);
-    pwrDisplay.innerText = power;
-    apsDisplay.innerText = auto;
+// Generate 100 items
+const items = [];
+for (let i = 1; i <= 100; i++) {
+    items.push({
+        id: i,
+        name: `Upgrade #${i}`,
+        cost: Math.floor(10 * Math.pow(1.4, i)),
+        bonus: i % 2 === 0 ? i : 0, // Even items give Power
+        autoBonus: i % 2 !== 0 ? Math.ceil(i/2) : 0 // Odd items give Auto
+    });
+}
 
-    // Update shop costs and button states
-    for (let i = 0; i < 3; i++) {
-        let btn = document.getElementById(`c${i}`).parentNode;
-        document.getElementById(`c${i}`).innerText = costs[i];
-        btn.disabled = score < costs[i];
+// Build the Shop HTML
+function buildShop() {
+    shopList.innerHTML = items.map((item, index) => `
+        <div class="shop-item">
+            <div>
+                <strong>${item.name}</strong><br>
+                <small>${item.bonus ? '+'+item.bonus+' Power' : '+'+item.autoBonus+' Auto/s'}</small>
+            </div>
+            <button class="buy-btn" id="btn-${index}" onclick="buyItem(${index})">
+                $${item.cost}
+            </button>
+        </div>
+    `).join('');
+}
+
+function buyItem(idx) {
+    let item = items[idx];
+    if (score >= item.cost) {
+        score -= item.cost;
+        power += item.bonus;
+        auto += item.autoBonus;
+        item.cost = Math.floor(item.cost * 1.5); // Increase price
+        sync();
     }
 }
 
-btnMain.onclick = () => {
-    score += power;
-    update();
-};
-
-window.buy = (item) => {
-    if (score < costs[item]) return;
-
-    score -= costs[item];
+function sync() {
+    document.getElementById('score').innerText = Math.floor(score);
+    document.getElementById('pwr').innerText = power;
+    document.getElementById('aps').innerText = auto;
     
-    if (item === 0) { // Intern
-        auto += 1;
-        costs[0] = Math.round(costs[0] * 1.3);
-    } else if (item === 1) { // Drink
-        power += 1;
-        costs[1] = Math.round(costs[1] * 1.4);
-    } else if (item === 2) { // Botnet
-        auto += 10;
-        costs[2] = Math.round(costs[2] * 1.5);
-    }
-    update();
+    // Update button states
+    items.forEach((item, idx) => {
+        let b = document.getElementById(`btn-${idx}`);
+        if (b) {
+            b.innerText = `$${item.cost}`;
+            b.disabled = score < item.cost;
+        }
+    });
+}
+
+document.getElementById('clicker').onclick = () => {
+    score += power;
+    sync();
 };
 
-// Auto-click loop
+// Main loop
 setInterval(() => {
     if (auto > 0) {
         score += (auto / 10);
-        update();
+        sync();
     }
 }, 100);
 
-update();
+buildShop();
+sync();
