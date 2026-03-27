@@ -1,88 +1,105 @@
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
     height: 100vh;
-    background: #050505 url('ClickerArt/Background.png') no-repeat center center fixed;
+    background: #000 url('ClickerArt/Background.png') no-repeat center center fixed;
     background-size: cover;
     color: #fff;
     font-family: 'VT323', monospace;
     overflow: hidden;
+    text-transform: lowercase; /* forces no caps vibe */
 }
 
-.layout { display: flex; height: 100vh; width: 100vw; }
+.layout { display: flex; height: 100vh; }
 
-.viewport {
+/* game area */
+.game-area {
     flex: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-right: 1px solid #333;
 }
 
-.hud { text-align: center; margin-bottom: 20px; }
-#score { font-size: 8rem; margin: 0; text-shadow: 4px 4px #ff00ff; line-height: 1; }
-.stats { font-size: 2rem; color: #00d4ff; }
+#score { font-size: 8rem; margin: 0; }
+.stats { font-size: 2rem; color: #888; }
 
-#main-btn {
-    width: 160px; /* Nice and compact */
+#button-dock {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    max-width: 500px;
+}
+
+.clickable-btn {
+    width: 80px;
     cursor: pointer;
     transition: transform 0.05s;
-    filter: drop-shadow(0 0 10px #00d4ff);
 }
 
-#main-btn:active { transform: scale(0.85); }
+.clickable-btn:active { transform: scale(0.9); }
 
+/* sidebar shop */
 .sidebar {
     flex: 1;
-    background: rgba(0, 0, 0, 0.95);
-    border-left: 3px solid #ff00ff;
+    background: rgba(0, 0, 0, 0.9);
     display: flex;
     flex-direction: column;
 }
 
-.shop-banner {
-    background: #ff00ff;
+.shop-header {
+    background: #fff;
     color: #000;
     font-size: 2rem;
     padding: 10px;
     text-align: center;
+    font-weight: bold;
 }
 
-#shop-list { flex-grow: 1; overflow-y: auto; padding: 10px; }
+#shop-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
 
 .item {
-    background: #111;
-    border: 1px solid #333;
-    padding: 12px;
-    margin-bottom: 8px;
+    border-bottom: 1px solid #222;
+    padding: 12px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.item b { color: #00d4ff; font-size: 1.4rem; display: block; }
+.item-info b { font-size: 1.4rem; color: #fff; display: block; }
+.item-info small { color: #555; display: block; }
 
 .buy-btn {
-    background: #fff;
-    border: none;
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
     font-family: 'VT323';
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     padding: 5px 10px;
     cursor: pointer;
 }
 
-.buy-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
+.buy-btn:hover:not(:disabled) { background: #fff; color: #000; }
+.buy-btn:disabled { color: #333; cursor: not-allowed; border-color: #222; }
 
+/* popups */
 .pop {
     position: absolute;
-    color: #ff00ff;
-    font-size: 2.5rem;
+    color: #fff;
+    font-size: 1.5rem;
     pointer-events: none;
-    animation: fUp 0.6s forwards;
+    animation: floatUp 0.5s forwards;
 }
 
-@keyframes fUp { 
-    0% { transform: translateY(0); opacity: 1; } 
-    100% { transform: translateY(-80px); opacity: 0; } 
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-60px); opacity: 0; }
 }

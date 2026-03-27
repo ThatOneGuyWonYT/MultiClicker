@@ -2,26 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MultiClicker</title>
+    <title>multiclicker</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="layout">
-        <section class="viewport">
+        <section class="game-area">
             <div class="hud">
                 <div id="score">0</div>
-                <div class="stats">Power: <span id="pwr">1</span> | Auto: <span id="aps">0</span></div>
+                <div class="stats">
+                    power: <span id="pwr">1</span> | auto: <span id="aps">0</span>
+                </div>
             </div>
             
-            <div class="btn-box">
-                <img src="ClickerArt/Button.png" id="main-btn" draggable="false">
-            </div>
+            <div id="button-dock">
+                </div>
         </section>
 
         <aside class="sidebar">
-            <div class="shop-banner">Upgrades</div>
+            <div class="shop-header">shop</div>
             <div id="shop-list"></div>
         </aside>
     </div>
