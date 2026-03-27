@@ -1,54 +1,48 @@
-* { box-sizing: border-box; cursor: crosshair; }
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
     height: 100vh;
-    background: url('ClickerArt/Background.png') no-repeat center center fixed;
+    /* Fallback color so you know if the CSS is loading */
+    background-color: #2e004f; 
+    background-image: url('ClickerArt/Background.png');
     background-size: cover;
-    color: #0f0;
-    font-family: 'Courier New', monospace;
+    background-position: center;
+    color: #fff;
+    font-family: sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
-}
-
-#stats { text-align: center; background: rgba(0,0,0,0.8); width: 100%; padding: 10px; border-bottom: 2px solid #0f0; }
-#score { font-size: 4rem; margin: 0; }
-
-#main-btn {
-    width: 250px;
-    height: 250px;
-    margin: 50px;
-    border-radius: 50%;
-    border: 10px double #0f0;
-    background: rgba(0,255,0,0.1);
-    color: #0f0;
-    font-size: 2rem;
-    font-weight: bold;
-    transition: 0.05s;
-}
-
-#main-btn:active { transform: scale(0.9); background: #0f0; color: #000; }
-
-#shop {
-    display: flex;
-    gap: 10px;
+    justify-content: space-between;
     padding: 20px;
-    background: rgba(0,0,0,0.8);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
 }
 
-.item {
+#ui { text-align: center; background: rgba(0,0,0,0.8); padding: 10px 40px; border-radius: 10px; }
+#score { font-size: 4rem; margin: 0; color: #00ff88; }
+
+#clicker {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid #00ff88;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+#clicker:active { transform: scale(0.9); }
+
+#shop { display: flex; gap: 10px; width: 100%; max-width: 600px; }
+
+#shop button {
     flex: 1;
-    background: transparent;
-    border: 1px solid #0f0;
-    color: #0f0;
     padding: 10px;
-    text-align: left;
+    background: rgba(0,0,0,0.8);
+    border: 1px solid #444;
+    color: #00ff88;
+    cursor: pointer;
 }
 
-.item:hover:not(:disabled) { background: rgba(0,255,0,0.2); }
-.item:disabled { color: #444; border-color: #444; cursor: not-allowed; }
+#shop button:disabled { color: #555; border-color: #222; cursor: not-allowed; }

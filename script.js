@@ -1,68 +1,55 @@
 let score = 0;
 let power = 1;
 let auto = 0;
-
 let costs = [50, 15, 500];
 
-const scoreEl = document.getElementById('score');
-const autoEl = document.getElementById('auto-rate');
-const powerEl = document.getElementById('per-click');
+const scoreDisplay = document.getElementById('score');
+const pwrDisplay = document.getElementById('pwr');
+const apsDisplay = document.getElementById('aps');
+const btnMain = document.getElementById('clicker');
 
-// Update Everything
-function sync() {
-    scoreEl.innerText = Math.floor(score);
-    autoEl.innerText = auto;
-    powerEl.innerText = power;
+function update() {
+    scoreDisplay.innerText = Math.floor(score);
+    pwrDisplay.innerText = power;
+    apsDisplay.innerText = auto;
 
-    document.getElementById('c1').innerText = costs[0];
-    document.getElementById('c2').innerText = costs[1];
-    document.getElementById('c3').innerText = costs[2];
-
-    document.getElementById('buy-intern').disabled = score < costs[0];
-    document.getElementById('buy-energy').disabled = score < costs[1];
-    document.getElementById('buy-botnet').disabled = score < costs[2];
+    // Update shop costs and button states
+    for (let i = 0; i < 3; i++) {
+        let btn = document.getElementById(`c${i}`).parentNode;
+        document.getElementById(`c${i}`).innerText = costs[i];
+        btn.disabled = score < costs[i];
+    }
 }
 
-// Click
-document.getElementById('main-btn').onclick = () => {
+btnMain.onclick = () => {
     score += power;
-    sync();
+    update();
 };
 
-// Shop Logic
-document.getElementById('buy-intern').onclick = () => {
-    if (score >= costs[0]) {
-        score -= costs[0];
+window.buy = (item) => {
+    if (score < costs[item]) return;
+
+    score -= costs[item];
+    
+    if (item === 0) { // Intern
         auto += 1;
-        costs[0] = Math.round(costs[0] * 1.2);
-        sync();
-    }
-};
-
-document.getElementById('buy-energy').onclick = () => {
-    if (score >= costs[1]) {
-        score -= costs[1];
+        costs[0] = Math.round(costs[0] * 1.3);
+    } else if (item === 1) { // Drink
         power += 1;
-        costs[1] = Math.round(costs[1] * 1.3);
-        sync();
-    }
-};
-
-document.getElementById('buy-botnet').onclick = () => {
-    if (score >= costs[2]) {
-        score -= costs[2];
+        costs[1] = Math.round(costs[1] * 1.4);
+    } else if (item === 2) { // Botnet
         auto += 10;
         costs[2] = Math.round(costs[2] * 1.5);
-        sync();
     }
+    update();
 };
 
-// Auto-Clicker Engine
+// Auto-click loop
 setInterval(() => {
     if (auto > 0) {
-        score += auto / 10; // Smooth increment
-        sync();
+        score += (auto / 10);
+        update();
     }
 }, 100);
 
-sync();
+update();

@@ -1,34 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>MultiClicker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <section id="stats">
+    <div id="ui">
         <h1 id="score">0</h1>
-        <p>CPS: <span id="auto-rate">0</span> | Power: <span id="per-click">1</span></p>
-    </section>
-
-    <div id="click-zone">
-        <button id="main-btn">TAP</button>
+        <p>Power: <span id="pwr">1</span> | Auto: <span id="aps">0</span>/s</p>
     </div>
 
+    <button id="clicker">CLICK</button>
+
     <div id="shop">
-        <button class="item" id="buy-intern">
-            <b>Underpaid Intern</b><br>
-            Clicks once per sec. Cost: <span id="c1">50</span>
+        <button onclick="buy(0)">
+            <b>Intern</b><br>+1 Auto | Cost: <span id="c0">50</span>
         </button>
-
-        <button class="item" id="buy-energy">
-            <b>Questionable Energy Drink</b><br>
-            +1 click power. Cost: <span id="c2">15</span>
+        <button onclick="buy(1)">
+            <b>Energy Drink</b><br>+1 Power | Cost: <span id="c1">15</span>
         </button>
-
-        <button class="item" id="buy-botnet">
-            <b>Local Botnet</b><br>
-            Huge auto-click boost. Cost: <span id="c3">500</span>
+        <button onclick="buy(2)">
+            <b>Botnet</b><br>+10 Auto | Cost: <span id="c2">500</span>
         </button>
     </div>
 
