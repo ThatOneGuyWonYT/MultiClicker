@@ -1,110 +1,86 @@
-:root {
-    --neon-green: #00ff88;
-    --pixel-font: 'VT323', monospace;
-}
+* { box-sizing: border-box; cursor: crosshair; }
 
 body {
     margin: 0;
-    padding: 0;
+    height: 100vh;
     background: #050505 url('ClickerArt/Background.png') no-repeat center center fixed;
     background-size: cover;
-    color: var(--neon-green);
-    font-family: var(--pixel-font);
+    color: #fff;
+    font-family: 'VT323', monospace;
     overflow: hidden;
 }
 
-.game-wrapper {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-}
+#game { display: flex; height: 100vh; }
 
 /* LEFT SIDE */
-.play-area {
-    flex: 2;
+#action {
+    flex: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
+}
+
+#counter { text-align: center; margin-bottom: 20px; text-shadow: 2px 2px #ff00ff; }
+#score { font-size: 8rem; margin: 0; }
+
+#main-btn {
+    width: 300px;
+    filter: drop-shadow(0 0 10px #00d4ff);
+    transition: 0.05s;
+}
+
+#main-btn:active { transform: scale(0.9) rotate(2deg); }
+
+/* RIGHT SIDE (SHOP) */
+#shop {
+    flex: 1;
+    background: rgba(0,0,0,0.9);
+    border-left: 3px solid #ff00ff;
+    overflow-y: scroll;
 }
 
 .header {
+    background: #ff00ff;
+    color: #000;
+    font-size: 2.5rem;
+    padding: 10px;
     text-align: center;
-    position: absolute;
-    top: 50px;
 }
 
-#score { font-size: 8rem; margin: 0; line-height: 0.8; }
-.stats { font-size: 2rem; margin-top: 10px; color: #fff; }
-
-#btn-container {
-    perspective: 1000px;
-}
-
-#main-btn {
-    width: 250px;
-    cursor: pointer;
-    transition: transform 0.05s;
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-/* CLICK ANIMATION */
-.pop { animation: click-pop 0.1s ease-out; }
-@keyframes click-pop {
-    0% { transform: scale(1); }
-    50% { transform: scale(0.85); }
-    100% { transform: scale(1); }
-}
-
-/* RIGHT SIDE (SHOP) */
-.shop-area {
-    flex: 1;
-    background: rgba(0, 0, 0, 0.85);
-    border-left: 4px solid var(--neon-green);
-    padding: 20px;
-    overflow-y: auto;
-}
-
-h2 { font-size: 3rem; text-align: center; border-bottom: 2px solid var(--neon-green); }
+#items { padding: 10px; }
 
 .item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid #333;
-    margin-bottom: 10px;
-    padding: 10px;
+    background: #111;
+    border: 1px solid #444;
+    padding: 15px;
+    margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
-.item:hover { border-color: var(--neon-green); }
-
-.item b { font-size: 1.5rem; display: block; }
+.item:hover { border-color: #00d4ff; }
 
 .buy-btn {
-    background: var(--neon-green);
+    background: #00d4ff;
     border: none;
-    font-family: var(--pixel-font);
+    font-family: 'VT323';
     font-size: 1.5rem;
     padding: 5px 15px;
-    cursor: pointer;
 }
 
-.buy-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+.buy-btn:disabled { background: #333; color: #666; }
 
-/* FLOATING TEXT ANIMATION */
-.floating-text {
+/* FLOATING NUMBERS */
+.popup {
     position: absolute;
-    color: white;
+    color: #00d4ff;
     font-size: 2rem;
     pointer-events: none;
-    animation: floatUp 0.8s forwards;
-    z-index: 100;
+    animation: moveUp 0.6s ease-out forwards;
 }
 
-@keyframes floatUp {
+@keyframes moveUp {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-100px); opacity: 0; }
 }

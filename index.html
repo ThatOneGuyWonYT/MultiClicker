@@ -1,32 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>MultiClicker: Space Edition</title>
+    <title>MultiClicker: Void</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <main class="game-wrapper">
-        <section class="play-area">
-            <div class="header">
+    <div id="game">
+        <section id="action">
+            <div id="counter">
                 <h1 id="score">0</h1>
-                <div class="stats">
-                    PWR: <span id="pwr">1</span> | AUTO: <span id="aps">0</span>
-                </div>
+                <p>POWER: <span id="pwr">1</span> | AUTO: <span id="aps">0</span></p>
             </div>
-
-            <div id="btn-container">
-                <img src="ClickerArt/Button.png" id="main-btn" alt="CLICK">
-            </div>
+            
+            <img src="ClickerArt/Button.png" id="main-btn" draggable="false">
         </section>
 
-        <aside class="shop-area">
-            <h2>STATION UPGRADES</h2>
-            <div id="item-list"></div>
+        <aside id="shop">
+            <div class="header">UPGRADES</div>
+            <div id="items"></div>
         </aside>
-    </main>
+    </div>
 
     <script src="script.js"></script>
 </body>
