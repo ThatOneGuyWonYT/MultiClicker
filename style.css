@@ -1,56 +1,148 @@
-/* 1. Ensure the canvas exists for the background to sit on */
+* { box-sizing: border-box; }
+
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    min-height: 100vh;
     width: 100%;
+    overflow: hidden; /* prevents the whole page from scrolling */
 }
 
 body {
-    /* 2. Added a fallback background color in case the image fails */
-    background-color: #0a0a0a; 
-    
-    /* 3. The background shorthand */
-    /* NOTE: If your CSS is in a folder, change the path to '../ClickerArt/Background.png' */
-    background: url('ClickerArt/Background.png') no-repeat center center fixed;
+    background: #0a0a0a url('ClickerArt/Background.png') no-repeat center center fixed;
     background-size: cover;
-    
     color: #ffffff;
     font-family: 'VT323', monospace;
     text-transform: lowercase;
-    
-    /* 4. Ensures content stays on top of the background */
-    display: flex;
-    flex-direction: column;
+    display: flex; /* aligns game area and sidebar side-by-side */
 }
 
+/* 1. Main Game Area */
+.game-area {
+    flex: 1; /* takes up all remaining space left by the sidebar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 300px; /* leaves space so buttons don't go under the sidebar */
+}
+
+/* 2. HUD Styling */
 .hud {
     text-align: center;
-    background: rgba(0, 0, 0, 0.6); 
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px; /* added margin so it doesn't touch the screen edges */
+    background: rgba(0, 0, 0, 0.7); 
+    padding: 20px 50px;
+    border-radius: 15px;
+    border: 1px solid #333;
+    margin-bottom: 30px;
 }
 
 #score {
     font-size: 8rem;
-    color: #ffffff;
-    text-shadow: 2px 2px #000;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 4px 4px #000;
 }
 
 .stats {
     font-size: 2rem;
-    color: #cccccc;
+    color: #888;
 }
 
+/* 3. The Button Dock (Where your ClickerArt images live) */
+#button-dock {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 600px;
+}
+
+.clickable-btn {
+    width: 100px; /* adjust size as needed */
+    cursor: pointer;
+    transition: transform 0.1s, filter 0.2s;
+    filter: drop-shadow(0 5px 0 #000);
+}
+
+.clickable-btn:hover {
+    transform: scale(1.05);
+}
+
+.clickable-btn:active {
+    transform: scale(0.9) translateY(5px);
+}
+
+/* 4. Sidebar Shop */
 .sidebar {
-    position: fixed; /* Ensures it stays to the side */
+    width: 300px;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.95);
+    border-left: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
     right: 0;
     top: 0;
-    height: 100%;
-    width: 250px;
-    background: rgba(15, 15, 15, 0.95);
-    border-left: 2px solid #333;
+    z-index: 10;
+}
+
+.shop-header {
+    background: #fff;
+    color: #000;
+    font-size: 2rem;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#shop-list {
+    flex: 1;
+    overflow-y: auto; /* allows only the shop list to scroll */
+    padding: 15px;
+}
+
+/* Individual Shop Item */
+.item {
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.item-info b { font-size: 1.2rem; display: block; }
+.item-info small { color: #555; display: block; line-height: 1.2; }
+
+.buy-btn {
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 5px;
+    cursor: pointer;
+    font-family: 'VT323';
+    font-size: 1.2rem;
+}
+
+.buy-btn:hover:not(:disabled) { background: #fff; color: #000; }
+.buy-btn:disabled { color: #333; border-color: #111; cursor: not-allowed; }
+
+/* 5. Rebirth Panel at the bottom of the sidebar */
+.rebirth-panel {
+    background: #000;
     padding: 20px;
+    border-top: 2px solid #333;
+}
+
+.rebirth-btn {
+    width: 100%;
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 10px;
+    font-family: 'VT323';
+    font-size: 1.5rem;
+    cursor: pointer;
 }
