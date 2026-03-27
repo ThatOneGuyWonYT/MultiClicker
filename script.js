@@ -1,76 +1,68 @@
-let game = {
-    score: 0,
-    power: 1,
-    autoRate: 0,
-    costs: { power: 10, auto: 50, mega: 500 }
-};
+let score = 0;
+let power = 1;
+let auto = 0;
 
-const ui = {
-    score: document.getElementById('score'),
-    power: document.getElementById('per-click'),
-    auto: document.getElementById('auto-rate'),
-    btnClick: document.getElementById('click-btn'),
-    // Shop
-    btnPower: document.getElementById('upgrade-power'),
-    btnAuto: document.getElementById('upgrade-auto'),
-    btnMega: document.getElementById('upgrade-mega'),
-    // Prices
-    costPower: document.getElementById('cost-power'),
-    costAuto: document.getElementById('cost-auto'),
-    costMega: document.getElementById('cost-mega')
-};
+let costs = [50, 15, 500];
 
-function updateUI() {
-    ui.score.innerText = Math.floor(game.score);
-    ui.power.innerText = game.power;
-    ui.auto.innerText = game.autoRate;
-    ui.costPower.innerText = game.costs.power;
-    ui.costAuto.innerText = game.costs.auto;
-    ui.costMega.innerText = game.costs.mega;
+const scoreEl = document.getElementById('score');
+const autoEl = document.getElementById('auto-rate');
+const powerEl = document.getElementById('per-click');
 
-    ui.btnPower.disabled = game.score < game.costs.power;
-    ui.btnAuto.disabled = game.score < game.costs.auto;
-    ui.btnMega.disabled = game.score < game.costs.mega;
+// Update Everything
+function sync() {
+    scoreEl.innerText = Math.floor(score);
+    autoEl.innerText = auto;
+    powerEl.innerText = power;
+
+    document.getElementById('c1').innerText = costs[0];
+    document.getElementById('c2').innerText = costs[1];
+    document.getElementById('c3').innerText = costs[2];
+
+    document.getElementById('buy-intern').disabled = score < costs[0];
+    document.getElementById('buy-energy').disabled = score < costs[1];
+    document.getElementById('buy-botnet').disabled = score < costs[2];
 }
 
-ui.btnClick.addEventListener('click', () => {
-    game.score += game.power;
-    updateUI();
-});
+// Click
+document.getElementById('main-btn').onclick = () => {
+    score += power;
+    sync();
+};
 
-ui.btnPower.addEventListener('click', () => {
-    if (game.score >= game.costs.power) {
-        game.score -= game.costs.power;
-        game.power += 1;
-        game.costs.power = Math.ceil(game.costs.power * 1.5);
-        updateUI();
+// Shop Logic
+document.getElementById('buy-intern').onclick = () => {
+    if (score >= costs[0]) {
+        score -= costs[0];
+        auto += 1;
+        costs[0] = Math.round(costs[0] * 1.2);
+        sync();
     }
-});
+};
 
-ui.btnAuto.addEventListener('click', () => {
-    if (game.score >= game.costs.auto) {
-        game.score -= game.costs.auto;
-        game.autoRate += 1;
-        game.costs.auto = Math.ceil(game.costs.auto * 1.7);
-        updateUI();
+document.getElementById('buy-energy').onclick = () => {
+    if (score >= costs[1]) {
+        score -= costs[1];
+        power += 1;
+        costs[1] = Math.round(costs[1] * 1.3);
+        sync();
     }
-});
+};
 
-ui.btnMega.addEventListener('click', () => {
-    if (game.score >= game.costs.mega) {
-        game.score -= game.costs.mega;
-        game.power *= 2;
-        game.costs.mega *= 6;
-        updateUI();
+document.getElementById('buy-botnet').onclick = () => {
+    if (score >= costs[2]) {
+        score -= costs[2];
+        auto += 10;
+        costs[2] = Math.round(costs[2] * 1.5);
+        sync();
     }
-});
+};
 
-// Auto-click loop
+// Auto-Clicker Engine
 setInterval(() => {
-    if (game.autoRate > 0) {
-        game.score += game.autoRate;
-        updateUI();
+    if (auto > 0) {
+        score += auto / 10; // Smooth increment
+        sync();
     }
-}, 1000);
+}, 100);
 
-updateUI();
+sync();

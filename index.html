@@ -1,38 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MultiClicker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="stats-panel">
-        <h1>MultiClicker</h1>
-        <div class="counter"><span id="score">0</span> Clicks</div>
-        <div class="sub-stat">Power: <span id="per-click">1</span> | Auto: <span id="auto-rate">0</span>/s</div>
+    <section id="stats">
+        <h1 id="score">0</h1>
+        <p>CPS: <span id="auto-rate">0</span> | Power: <span id="per-click">1</span></p>
+    </section>
+
+    <div id="click-zone">
+        <button id="main-btn">TAP</button>
     </div>
 
-    <button id="click-btn">DO NOT PRESS</button>
-
-    <div class="shop-grid">
-        <button id="upgrade-power" class="shop-item">
-            <strong>Stronger Index Finger</strong><br>
-            Gym for your hand. +1 Power<br>
-            Cost: <span id="cost-power">10</span>
+    <div id="shop">
+        <button class="item" id="buy-intern">
+            <b>Underpaid Intern</b><br>
+            Clicks once per sec. Cost: <span id="c1">50</span>
         </button>
 
-        <button id="upgrade-auto" class="shop-item">
-            <strong>Coffee-Fueled Bot</strong><br>
-            Jittery but fast. +1 Auto/s<br>
-            Cost: <span id="cost-auto">50</span>
+        <button class="item" id="buy-energy">
+            <b>Questionable Energy Drink</b><br>
+            +1 click power. Cost: <span id="c2">15</span>
         </button>
 
-        <button id="upgrade-mega" class="shop-item">
-            <strong>Interdimensional Mouse</strong><br>
-            Clicks in two places at once. 2x Power<br>
-            Cost: <span id="cost-mega">500</span>
+        <button class="item" id="buy-botnet">
+            <b>Local Botnet</b><br>
+            Huge auto-click boost. Cost: <span id="c3">500</span>
         </button>
     </div>
 

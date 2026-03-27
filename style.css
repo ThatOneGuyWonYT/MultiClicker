@@ -1,63 +1,54 @@
+* { box-sizing: border-box; cursor: crosshair; }
+
 body {
-    /* Path updated to point to the subfolder */
+    margin: 0;
+    height: 100vh;
     background: url('ClickerArt/Background.png') no-repeat center center fixed;
     background-size: cover;
-    background-color: #0a0a0a;
-    color: #fff;
-    font-family: 'Segoe UI', sans-serif;
+    color: #0f0;
+    font-family: 'Courier New', monospace;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    overflow: hidden;
 }
 
-.stats-panel { 
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 0 0 20px 20px;
-    text-align: center; 
-    border: 1px solid #444;
-}
+#stats { text-align: center; background: rgba(0,0,0,0.8); width: 100%; padding: 10px; border-bottom: 2px solid #0f0; }
+#score { font-size: 4rem; margin: 0; }
 
-.counter { font-size: 3.5rem; font-weight: 900; color: #ff0055; }
-
-#click-btn {
-    width: 180px;
-    height: 180px;
+#main-btn {
+    width: 250px;
+    height: 250px;
+    margin: 50px;
     border-radius: 50%;
-    border: 8px solid #ff0055;
-    background: #222;
-    color: white;
-    font-size: 1.1rem;
+    border: 10px double #0f0;
+    background: rgba(0,255,0,0.1);
+    color: #0f0;
+    font-size: 2rem;
     font-weight: bold;
-    cursor: pointer;
-    margin: 40px 0;
-    box-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
-    transition: 0.1s;
+    transition: 0.05s;
 }
 
-#click-btn:hover { box-shadow: 0 0 40px rgba(255, 0, 85, 0.8); }
-#click-btn:active { transform: scale(0.92); background: #ff0055; }
+#main-btn:active { transform: scale(0.9); background: #0f0; color: #000; }
 
-.shop-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    width: 90%;
-    max-width: 900px;
-    padding-bottom: 40px;
+#shop {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    background: rgba(0,0,0,0.8);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
-.shop-item {
-    background: rgba(20, 20, 20, 0.9);
-    border: 1px solid #555;
-    color: #eee;
-    padding: 15px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: 0.2s;
+.item {
+    flex: 1;
+    background: transparent;
+    border: 1px solid #0f0;
+    color: #0f0;
+    padding: 10px;
+    text-align: left;
 }
 
-.shop-item:hover:not(:disabled) { border-color: #ff0055; background: #222; }
-.shop-item:disabled { opacity: 0.4; cursor: not-allowed; }
+.item:hover:not(:disabled) { background: rgba(0,255,0,0.2); }
+.item:disabled { color: #444; border-color: #444; cursor: not-allowed; }
