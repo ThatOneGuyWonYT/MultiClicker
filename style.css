@@ -3,59 +3,58 @@
 body {
     margin: 0;
     height: 100vh;
-    background: #000 url('ClickerArt/Background.png') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
+    background: #1a1a1a; /* deep gray background */
+    color: #ffffff;
     font-family: 'VT323', monospace;
     overflow: hidden;
-    text-transform: lowercase; /* forces no caps vibe */
+    text-transform: lowercase; /* keep it casual tech vibe */
 }
 
 .layout { display: flex; height: 100vh; }
 
-/* game area */
 .game-area {
     flex: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-right: 1px solid #333;
+    border-right: 2px solid #333;
 }
 
-#score { font-size: 8rem; margin: 0; }
-.stats { font-size: 2rem; color: #888; }
+#score { font-size: 8rem; margin: 0; line-height: 1; }
+.stats { font-size: 2rem; color: #aaaaaa; margin-top: 10px; }
 
 #button-dock {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
-    max-width: 500px;
+    gap: 20px;
+    margin-top: 40px;
+    max-width: 600px;
 }
 
 .clickable-btn {
-    width: 80px;
+    width: 90px;
     cursor: pointer;
     transition: transform 0.05s;
+    filter: drop-shadow(0px 4px 0px #000);
 }
 
-.clickable-btn:active { transform: scale(0.9); }
+.clickable-btn:active { transform: translateY(4px); }
 
-/* sidebar shop */
+/* shop styles */
 .sidebar {
     flex: 1;
-    background: rgba(0, 0, 0, 0.9);
+    background: #111111;
     display: flex;
     flex-direction: column;
 }
 
 .shop-header {
-    background: #fff;
-    color: #000;
-    font-size: 2rem;
-    padding: 10px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 2.5rem;
+    padding: 15px;
     text-align: center;
     font-weight: bold;
 }
@@ -63,43 +62,45 @@ body {
 #shop-list {
     flex-grow: 1;
     overflow-y: auto;
-    padding: 15px;
+    padding: 20px;
 }
 
 .item {
-    border-bottom: 1px solid #222;
-    padding: 12px 0;
+    background: #222;
+    border: 1px solid #444;
+    padding: 15px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.item-info b { font-size: 1.4rem; color: #fff; display: block; }
-.item-info small { color: #555; display: block; }
+.item-info b { font-size: 1.2rem; display: block; color: #fff; }
+.item-info small { color: #888; }
 
 .buy-btn {
-    background: #222;
+    background: #444;
     color: #fff;
-    border: 1px solid #444;
+    border: none;
     font-family: 'VT323';
-    font-size: 1.2rem;
-    padding: 5px 10px;
+    font-size: 1.4rem;
+    padding: 8px 12px;
     cursor: pointer;
 }
 
-.buy-btn:hover:not(:disabled) { background: #fff; color: #000; }
-.buy-btn:disabled { color: #333; cursor: not-allowed; border-color: #222; }
+.buy-btn:hover:not(:disabled) { background: #eee; color: #000; }
+.buy-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-/* popups */
+/* popup text */
 .pop {
     position: absolute;
-    color: #fff;
-    font-size: 1.5rem;
+    color: #ffffff;
+    font-size: 2rem;
     pointer-events: none;
-    animation: floatUp 0.5s forwards;
+    animation: floatUp 0.6s forwards;
 }
 
 @keyframes floatUp {
     0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-60px); opacity: 0; }
+    100% { transform: translateY(-100px); opacity: 0; }
 }

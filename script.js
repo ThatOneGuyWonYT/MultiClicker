@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // initialize stats from local storage
     let score = parseFloat(localStorage.getItem('mc_score')) || 0;
     let pwr = parseFloat(localStorage.getItem('mc_pwr')) || 1;
     let auto = parseFloat(localStorage.getItem('mc_auto')) || 0;
     let unlockedButtons = parseInt(localStorage.getItem('mc_btns')) || 1;
     let shopData = [];
 
-    // sounds
+    // audio setup
     const sndClick = new Audio('Clicker Sounds/click.mp3');
     const sndBuy = new Audio('Clicker Sounds/buy.mp3');
     const sndUnlock = new Audio('Clicker Sounds/unlock.mp3');
@@ -16,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const shopList = document.getElementById('shop-list');
     const dock = document.getElementById('button-dock');
 
-    // fetch the shop items
+    // fetch the shop items from your json
     fetch('ShopItems.json')
-        .then(r => r.json())
+        .then(response => response.json())
         .then(data => {
             shopData = data;
             renderShop();
@@ -26,35 +27,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     function renderShop() {
-        shopList.innerHTML = shopData.map((it, i) => {
-            // hide button upgrades already owned
-            if (it.isBtn && i < unlockedButtons - 1) return '';
+        shopList.innerHTML = shopData.map((item, index) => {
+            // we assume the first few items in your json might be button unlocks
+            // if your json doesn't have "isBtn", this logic just shows everything
+            if (item.isBtn && index < unlockedButtons - 1) return '';
             
+            // using "price" because that's what your json snippet showed
             return `
             <div class="item">
                 <div class="item-info">
-                    <b>${it.name}</b>
-                    <small>${it.desc}</small>
+                    <b>${item.name}</b>
+                    <small>${item.category || 'misc'}</small>
                 </div>
-                <button class="buy-btn" id="b-${i}" onclick="buyItem(${i})">$${format(it.cost)}</button>
+                <button class="buy-btn" id="b-${index}" onclick="buyItem(${index})">
+                    $${format(item.price)}
+                </button>
             </div>`;
         }).join('');
     }
 
-    window.buyItem = (i) => {
-        let it = shopData[i];
-        if (score >= it.cost) {
-            score -= it.cost;
-            pwr += it.p || 0;
-            auto += it.a || 0;
-
-            if (it.isBtn) {
+    window.buyItem = (index) => {
+        let item = shopData[index];
+        if (score >= item.price) {
+            score -= item.price;
+            
+            // logic for power/auto based on item type
+            if (item.category === "Electronics") {
+                pwr += (item.id * 0.5); // example scaling
+            }
+            
+            // button unlock logic
+            if (item.isBtn) {
                 unlockedButtons++;
                 spawnButton(unlockedButtons - 1);
                 sndUnlock.play();
             } else {
-                it.cost = Math.floor(it.cost * 1.5);
                 sndBuy.play();
+                // scale price up for next purchase
+                item.price = Math.floor(item.price * 1.4);
             }
 
             renderShop();
@@ -65,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function spawnButton(idx) {
         const img = document.createElement('img');
-        // Button.png, then Button1.png, etc.
+        // uses Button.png for idx 0, then Button1.png, etc.
         img.src = `ClickerArt/Button${idx === 0 ? '' : idx}.png`;
         img.className = 'clickable-btn';
         img.onclick = (e) => {
@@ -85,11 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
         p.style.left = e.clientX + 'px';
         p.style.top = e.clientY + 'px';
         document.body.appendChild(p);
-        setTimeout(() => p.remove(), 500);
+        setTimeout(() => p.remove(), 600);
     }
 
     function format(n) {
-        if (n >= 1e9) return (n / 1e9).toFixed(2) + "b";
         if (n >= 1e6) return (n / 1e6).toFixed(2) + "m";
         if (n >= 1e3) return (n / 1e3).toFixed(1) + "k";
         return Math.floor(n).toLocaleString();
@@ -99,9 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDisplay.innerText = format(score);
         pwrDisplay.innerText = format(pwr);
         autoDisplay.innerText = format(auto);
-        shopData.forEach((it, i) => {
-            const btn = document.getElementById(`b-${i}`);
-            if (btn) btn.disabled = score < it.cost;
+        shopData.forEach((item, index) => {
+            const btn = document.getElementById(`b-${index}`);
+            if (btn) btn.disabled = score < item.price;
         });
     }
 
@@ -112,16 +121,16 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('mc_btns', unlockedButtons);
     }
 
-    // initial setup
+    // initialize first buttons on load
     dock.innerHTML = '';
     for(let i=0; i < unlockedButtons; i++) spawnButton(i);
 
-    // loop
+    // main game loop (10 times per second)
     setInterval(() => {
         score += auto / 10;
         sync();
     }, 100);
 
-    // save every 30s
-    setInterval(save, 30000);
+    // save game state every 20 seconds
+    setInterval(save, 20000);
 });
