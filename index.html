@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>multiclicker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multiclicker: rogue tech</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
@@ -17,14 +18,27 @@
                 </div>
             </div>
             
-            <div id="button-dock">
-                </div>
+            <div id="button-dock"></div>
         </section>
 
         <aside class="sidebar">
-            <div class="shop-header">shop</div>
-            <div id="shop-list">
+            <div class="shop-header">
+                <span>Shop</span>
+            </div>
+
+            <div id="shop-list"></div>
+
+            <div class="rebirth-panel">
+                <div class="rebirth-info">
+                    rebirths: <span id="rebirth-count">0</span>
                 </div>
+                <button id="rebirth-btn" class="rebirth-btn" onclick="doRebirth()">
+                    rebirth ($1.0m)
+                </button>
+                <small style="color: #444; margin-top: 5px; display: block;">
+                    resets clicks for permanent power boost
+                </small>
+            </div>
         </aside>
     </div>
 
