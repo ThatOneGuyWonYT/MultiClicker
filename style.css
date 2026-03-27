@@ -1,1 +1,50 @@
+body {
+    background-color: #1a1a1a;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
 
+.game-container {
+    text-align: center;
+    background: #2a2a2a;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    width: 300px;
+}
+
+#click-btn {
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #00ff88;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.1s;
+    margin: 20px 0;
+}
+
+#click-btn:active {
+    transform: scale(0.95);
+}
+
+.upgrade {
+    background-color: #444;
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.upgrade:disabled {
+    color: #777;
+    border-color: #777;
+    cursor: not-allowed;
+}
