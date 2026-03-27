@@ -7,23 +7,35 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
+
+    <div class="stats-panel">
         <h1>MultiClicker</h1>
-        
-        <div class="stats">
-            <p>Score: <span id="score">0</span></p>
-            <p>Per Click: <span id="per-click">1</span></p>
-        </div>
-
-        <button id="click-btn">CLICK ME!</button>
-
-        <div class="shop">
-            <h3>Shop</h3>
-            <button id="upgrade-btn" class="upgrade">
-                Buy Multiplier (Cost: <span id="upgrade-cost">10</span>)
-            </button>
-        </div>
+        <div class="counter"><span id="score">0</span> Clicks</div>
+        <div class="sub-stat">Power: <span id="per-click">1</span> | Auto: <span id="auto-rate">0</span>/s</div>
     </div>
+
+    <button id="click-btn">DO NOT PRESS</button>
+
+    <div class="shop-grid">
+        <button id="upgrade-power" class="shop-item">
+            <strong>Stronger Index Finger</strong><br>
+            Gym for your hand. +1 Power<br>
+            Cost: <span id="cost-power">10</span>
+        </button>
+
+        <button id="upgrade-auto" class="shop-item">
+            <strong>Coffee-Fueled Bot</strong><br>
+            Jittery but fast. +1 Auto/s<br>
+            Cost: <span id="cost-auto">50</span>
+        </button>
+
+        <button id="upgrade-mega" class="shop-item">
+            <strong>Interdimensional Mouse</strong><br>
+            Clicks in two places at once. 2x Power<br>
+            Cost: <span id="cost-mega">500</span>
+        </button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

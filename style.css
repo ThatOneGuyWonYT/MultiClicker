@@ -1,50 +1,63 @@
 body {
-    background-color: #1a1a1a;
-    color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Path updated to point to the subfolder */
+    background: url('ClickerArt/Background.png') no-repeat center center fixed;
+    background-size: cover;
+    background-color: #0a0a0a;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
 }
 
-.game-container {
-    text-align: center;
-    background: #2a2a2a;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    width: 300px;
+.stats-panel { 
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 0 0 20px 20px;
+    text-align: center; 
+    border: 1px solid #444;
 }
+
+.counter { font-size: 3.5rem; font-weight: 900; color: #ff0055; }
 
 #click-btn {
-    padding: 20px 40px;
-    font-size: 1.5rem;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 8px solid #ff0055;
+    background: #222;
+    color: white;
+    font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    background-color: #00ff88;
-    border: none;
-    border-radius: 10px;
-    transition: transform 0.1s;
-    margin: 20px 0;
+    margin: 40px 0;
+    box-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
+    transition: 0.1s;
 }
 
-#click-btn:active {
-    transform: scale(0.95);
+#click-btn:hover { box-shadow: 0 0 40px rgba(255, 0, 85, 0.8); }
+#click-btn:active { transform: scale(0.92); background: #ff0055; }
+
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    width: 90%;
+    max-width: 900px;
+    padding-bottom: 40px;
 }
 
-.upgrade {
-    background-color: #444;
-    color: #00ff88;
-    border: 1px solid #00ff88;
-    padding: 10px;
+.shop-item {
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid #555;
+    color: #eee;
+    padding: 15px;
     cursor: pointer;
-    width: 100%;
+    border-radius: 10px;
+    transition: 0.2s;
 }
 
-.upgrade:disabled {
-    color: #777;
-    border-color: #777;
-    cursor: not-allowed;
-}
+.shop-item:hover:not(:disabled) { border-color: #ff0055; background: #222; }
+.shop-item:disabled { opacity: 0.4; cursor: not-allowed; }
