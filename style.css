@@ -1,67 +1,58 @@
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
     margin: 0;
     height: 100vh;
-    background: #0a0a0c url('ClickerArt/Background.png') no-repeat center center fixed;
+    background: #050505 url('ClickerArt/Background.png') no-repeat center center fixed;
     background-size: cover;
     color: #fff;
     font-family: 'VT323', monospace;
     overflow: hidden;
 }
 
-.main-layout { display: flex; height: 100vh; }
+.layout { display: flex; height: 100vh; width: 100vw; }
 
-/* LEFT SIDE */
-.game-view {
+.viewport {
     flex: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-right: 4px solid #ff00ff;
 }
 
-.hud { text-align: center; margin-bottom: 2rem; }
-#score { font-size: 7rem; margin: 0; text-shadow: 4px 4px #ff00ff; line-height: 1; }
+.hud { text-align: center; margin-bottom: 20px; }
+#score { font-size: 8rem; margin: 0; text-shadow: 4px 4px #ff00ff; line-height: 1; }
 .stats { font-size: 2rem; color: #00d4ff; }
 
-/* SMALLER BUTTON */
 #main-btn {
-    width: 180px; /* Smaller as requested */
+    width: 160px; /* Nice and compact */
     cursor: pointer;
-    filter: drop-shadow(0 0 15px #00d4ff);
     transition: transform 0.05s;
+    filter: drop-shadow(0 0 10px #00d4ff);
 }
 
-#main-btn:active { transform: scale(0.8); }
+#main-btn:active { transform: scale(0.85); }
 
-/* SHOP SIDEBAR */
-.shop-sidebar {
+.sidebar {
     flex: 1;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
+    border-left: 3px solid #ff00ff;
     display: flex;
     flex-direction: column;
 }
 
-.shop-title {
+.shop-banner {
     background: #ff00ff;
     color: #000;
     font-size: 2rem;
-    padding: 15px;
-    text-align: center;
-    font-weight: bold;
-}
-
-#shop-list {
-    flex-grow: 1;
-    overflow-y: scroll;
     padding: 10px;
+    text-align: center;
 }
 
-/* SHOP ITEM STYLING */
+#shop-list { flex-grow: 1; overflow-y: auto; padding: 10px; }
+
 .item {
-    background: #1a1a1d;
+    background: #111;
     border: 1px solid #333;
     padding: 12px;
     margin-bottom: 8px;
@@ -70,32 +61,28 @@ body {
     align-items: center;
 }
 
-.item:hover { border-color: #00d4ff; }
-
-.item-desc b { font-size: 1.4rem; color: #00d4ff; display: block; }
-.item-desc small { color: #888; font-style: italic; }
+.item b { color: #00d4ff; font-size: 1.4rem; display: block; }
 
 .buy-btn {
     background: #fff;
     border: none;
     font-family: 'VT323';
     font-size: 1.4rem;
-    padding: 5px 12px;
+    padding: 5px 10px;
     cursor: pointer;
 }
 
-.buy-btn:disabled { background: #444; color: #777; cursor: not-allowed; }
+.buy-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
 
-/* FLOATING POPUP */
 .pop {
     position: absolute;
     color: #ff00ff;
     font-size: 2.5rem;
     pointer-events: none;
-    animation: floatUp 0.6s ease-out forwards;
+    animation: fUp 0.6s forwards;
 }
 
-@keyframes floatUp {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-80px); opacity: 0; }
+@keyframes fUp { 
+    0% { transform: translateY(0); opacity: 1; } 
+    100% { transform: translateY(-80px); opacity: 0; } 
 }
