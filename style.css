@@ -1,86 +1,101 @@
-* { box-sizing: border-box; cursor: crosshair; }
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
     height: 100vh;
-    background: #050505 url('ClickerArt/Background.png') no-repeat center center fixed;
+    background: #0a0a0c url('ClickerArt/Background.png') no-repeat center center fixed;
     background-size: cover;
     color: #fff;
     font-family: 'VT323', monospace;
     overflow: hidden;
 }
 
-#game { display: flex; height: 100vh; }
+.main-layout { display: flex; height: 100vh; }
 
 /* LEFT SIDE */
-#action {
-    flex: 3;
+.game-view {
+    flex: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-right: 4px solid #ff00ff;
 }
 
-#counter { text-align: center; margin-bottom: 20px; text-shadow: 2px 2px #ff00ff; }
-#score { font-size: 8rem; margin: 0; }
+.hud { text-align: center; margin-bottom: 2rem; }
+#score { font-size: 7rem; margin: 0; text-shadow: 4px 4px #ff00ff; line-height: 1; }
+.stats { font-size: 2rem; color: #00d4ff; }
 
+/* SMALLER BUTTON */
 #main-btn {
-    width: 300px;
-    filter: drop-shadow(0 0 10px #00d4ff);
-    transition: 0.05s;
+    width: 180px; /* Smaller as requested */
+    cursor: pointer;
+    filter: drop-shadow(0 0 15px #00d4ff);
+    transition: transform 0.05s;
 }
 
-#main-btn:active { transform: scale(0.9) rotate(2deg); }
+#main-btn:active { transform: scale(0.8); }
 
-/* RIGHT SIDE (SHOP) */
-#shop {
+/* SHOP SIDEBAR */
+.shop-sidebar {
     flex: 1;
-    background: rgba(0,0,0,0.9);
-    border-left: 3px solid #ff00ff;
-    overflow-y: scroll;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
 }
 
-.header {
+.shop-title {
     background: #ff00ff;
     color: #000;
-    font-size: 2.5rem;
-    padding: 10px;
+    font-size: 2rem;
+    padding: 15px;
     text-align: center;
+    font-weight: bold;
 }
 
-#items { padding: 10px; }
+#shop-list {
+    flex-grow: 1;
+    overflow-y: scroll;
+    padding: 10px;
+}
 
+/* SHOP ITEM STYLING */
 .item {
-    background: #111;
-    border: 1px solid #444;
-    padding: 15px;
+    background: #1a1a1d;
+    border: 1px solid #333;
+    padding: 12px;
     margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .item:hover { border-color: #00d4ff; }
 
+.item-desc b { font-size: 1.4rem; color: #00d4ff; display: block; }
+.item-desc small { color: #888; font-style: italic; }
+
 .buy-btn {
-    background: #00d4ff;
+    background: #fff;
     border: none;
     font-family: 'VT323';
-    font-size: 1.5rem;
-    padding: 5px 15px;
+    font-size: 1.4rem;
+    padding: 5px 12px;
+    cursor: pointer;
 }
 
-.buy-btn:disabled { background: #333; color: #666; }
+.buy-btn:disabled { background: #444; color: #777; cursor: not-allowed; }
 
-/* FLOATING NUMBERS */
-.popup {
+/* FLOATING POPUP */
+.pop {
     position: absolute;
-    color: #00d4ff;
-    font-size: 2rem;
+    color: #ff00ff;
+    font-size: 2.5rem;
     pointer-events: none;
-    animation: moveUp 0.6s ease-out forwards;
+    animation: floatUp 0.6s ease-out forwards;
 }
 
-@keyframes moveUp {
+@keyframes floatUp {
     0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-100px); opacity: 0; }
+    100% { transform: translateY(-80px); opacity: 0; }
 }
